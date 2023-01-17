@@ -100,19 +100,28 @@ JSONItem TextDocumentItem::ToJSON(const wxString& name) const
 //===----------------------------------------------------------------------------------
 // TextDocumentContentChangeEvent
 //===----------------------------------------------------------------------------------
-void TextDocumentContentChangeEvent::FromJSON(const JSONItem& json) { m_text = json.namedObject("text").toString(); }
+void TextDocumentContentChangeEvent::FromJSON(const JSONItem& json)
+{
+    m_text = json.namedObject("text").toString();
+    if(json.hasNamedObject("range")) {
+        m_range.FromJSON(json["range"]);
+    }
+}
 
 JSONItem TextDocumentContentChangeEvent::ToJSON(const wxString& name) const
 {
     JSONItem json = JSONItem::createObject(name);
+    if(m_range.IsOk()) {
+        json.append(m_range.ToJSON("range"));
+    }
     json.addProperty("text", m_text);
     return json;
 }
 
 void Range::FromJSON(const JSONItem& json)
 {
-    m_start.FromJSON(json.namedObject("start"));
-    m_end.FromJSON(json.namedObject("end"));
+    m_start.FromJSON(json["start"]);
+    m_end.FromJSON(json["end"]);
 }
 
 JSONItem Range::ToJSON(const wxString& name) const

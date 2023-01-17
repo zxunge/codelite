@@ -6426,8 +6426,8 @@ void clEditor::SetSemanticTokens(const wxString& classes, const wxString& variab
     CHECK_PTR_RET(lexer);
 
     SetKeywordLocals(flatStrLocals);
-    SetKeywordLocals(flatStrOthers);
-    SetKeywordLocals(flatStrMethods);
+    SetKeywordOthers(flatStrOthers);
+    SetKeywordMethods(flatStrMethods);
     SetKeywordClasses(flatStrClasses);
 
     if(lexer->GetWordSet(LexerConf::WS_CLASS).is_ok()) {
@@ -6448,12 +6448,11 @@ void clEditor::SetSemanticTokens(const wxString& classes, const wxString& variab
             keywords_variables = 3;
             break;
 
-#if wxCHECK_VERSION(3, 1, 2)
         case wxSTC_LEX_RUST:
             keywords_class = 3;
             keywords_variables = 4;
             break;
-#endif
+
         case wxSTC_LEX_PYTHON:
             keywords_variables = 1;
             break;
