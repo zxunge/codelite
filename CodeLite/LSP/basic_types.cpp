@@ -128,7 +128,7 @@ JSONItem Range::ToJSON(const wxString& name) const
 {
     JSONItem json = JSONItem::createObject(name);
     json.append(m_start.ToJSON("start"));
-    json.append(m_start.ToJSON("end"));
+    json.append(m_end.ToJSON("end"));
     return json;
 }
 

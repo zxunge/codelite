@@ -34,23 +34,21 @@ std::vector<LSP::TextDocumentContentChangeEvent> FileContentTracker::changes_fro
     clDTL diff;
     auto steps = diff.CreatePatch(before, after);
 
-#if 0
-    if(!steps.empty()) {
-        clSYSTEM() << "before content size:" << before.size() << endl;
-        clSYSTEM() << "after content size:" << after.size() << endl;
+    LOG_IF_DEBUG
+    {
+        if(!steps.empty()) {
+            auto escap_crlf = [](const wxString& s) -> wxString {
+                wxString ss = s;
+                ss.Replace("\r", "\\r");
+                ss.Replace("\n", "\\n");
+                return ss;
+            };
 
-        auto escap_crlf = [](const wxString& s) -> wxString {
-            wxString ss = s;
-            ss.Replace("\r", "\\r");
-            ss.Replace("\n", "\\n");
-            return ss;
-        };
-
-        for(auto c : steps) {
-            clSYSTEM() << escap_crlf(c.to_string()) << endl;
+            for(auto c : steps) {
+                LSP_DEBUG() << escap_crlf(c.to_string()) << endl;
+            }
         }
     }
-#endif
 
     // convert the patch into ranges
     std::vector<LSP::TextDocumentContentChangeEvent> result;
