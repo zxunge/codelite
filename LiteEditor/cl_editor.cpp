@@ -1984,7 +1984,6 @@ void clEditor::CodeComplete(bool refreshingList)
         return; // Don't clobber the boxes..
 
     if(!refreshingList) {
-        clSYSTEM() << "clEditor::CodeComplete(): sending CC request" << endl;
         clCodeCompletionEvent evt(wxEVT_CC_CODE_COMPLETE);
         evt.SetPosition(GetCurrentPosition());
         evt.SetTriggerKind(LSP::CompletionItem::kTriggerCharacter);
