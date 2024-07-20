@@ -1,6 +1,6 @@
 Installing new locale:
 - Create your codelite.mo file (using codelite.pot)
-- Creae a directory for your translation 
+- Create a directory for your translation 
 - Copy the codelite.mo to that directory
 
 Example:
